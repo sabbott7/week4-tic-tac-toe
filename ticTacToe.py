@@ -1,4 +1,5 @@
 def printBoard(board):
+    
     # TO DO #################################################################
     # Write code in this function that prints the game board.               #
     # The code in this function should only print, the user should NOT      #
@@ -6,6 +7,12 @@ def printBoard(board):
     #                                                                       #
     # Hint: you can follow the same process that was done in the textbook.  #
     #########################################################################
+
+    print(board['top-L'] + '|' + board['top-M'] + '|' + board['top-R'])
+    print('-+-+-')
+    print(board['mid-L'] + '|' + board['mid-M'] + '|' + board['mid-R'])
+    print('-+-+-')
+    print(board['low-L'] + '|' + board['low-M'] + '|' + board['low-R'])
 
 def checkWinner(board, player):    
     print('Checking if ' + player + ' is a winner...')
@@ -18,31 +25,57 @@ def checkWinner(board, player):
     # variable 'player' has won. The function should return False           #
     # if the player in the variable 'player' has not won.                   #
     #########################################################################
+
+    #check if previous move was on horizontal line and caused a win
+    if board['top-L'] == (player) and board['top-M'] == (player) and board ['top-R'] == (player):
+        return True
+    if board['mid-L'] == (player) and board['mid-M'] == (player) and board ['mid-R'] == (player):
+        return True
+    if board['low-L'] == (player) and board['low-M'] == (player) and board ['low-R'] == (player):
+        return True
+
+    #check if previous move was on vertical line and caused a win
+    if board['top-L'] == (player) and board['mid-L'] == (player) and board ['low-L'] == (player):
+        return True
+    if board['top-M'] == (player) and board['mid-M'] == (player) and board ['low-M'] == (player):
+        return True
+    if board['top-R'] == (player) and board['mid-R'] == (player) and board ['low-R'] == (player):
+        return True
+
+    #check if previous move was on the main diagonal and caused a win
+    if board['top-L'] == (player) and board['mid-M'] == (player) and board ['low-R'] == (player):
+        return True
+
+    #check if previous move was on the secondary diagonal and caused a win
+    if board['top-R'] == (player) and board['mid-M'] == (player) and board ['low-L'] == (player):
+        return True 
+
+    return False 
+    #end of CheckWinner function    
     
-    
-def startGame(startingPlayer, board):
+def startGame(startingPlayer, board): # define function with 2 parameters
     # TO DO #################################################################
     # Add comments to each line in this function to describe what           #
     # is happening. You do not need to modify any of the Python code        #
     #########################################################################
 
-    turn = startingPlayer
-    for i in range(9):
-        printBoard(board)
-        print('Turn for ' + turn + '. Move on which space?')
-        move = input()
-        board[move] = turn
-        if( checkWinner(board, 'X') ):
-            print('X wins!')
-            break
-        elif ( checkWinner(board, 'O') ):
-            print('O wins!')
-            break
+    turn = startingPlayer # active player 1st to make choice
+    for i in range(9): #loops through all the 9 board key locations for each turn
+        printBoard(board) # prints out the board at the start of each turn
+        print('Turn for ' + turn + '. Move on which space?') #output to screen active player name
+        move = input() # extracts the active players move
+        board[move] = turn # updates the value for the key in the board
+        if( checkWinner(board, 'X') ): #calls to checkWinner func return type=True where player 'X' has won
+            print('X wins!') # output to screen player 'X' won game
+            break # exit program 
+        elif ( checkWinner(board, 'O') ): # calls to checkWinner func return=True where player 'O' has won
+            print('O wins!') # output to screen player 'X' won game
+            break # exit program
     
-        if turn == 'X':
-            turn = 'O'
+        if turn == 'X': # check condition for current player = 'X'
+            turn = 'O' # if active player = 'X' then swap to player 'O'
         else:
-            turn = 'X'
+            turn = 'X' # active player = 'O' therefore swap to player 'X' 
         
     printBoard(board)
     
