@@ -26,31 +26,17 @@ def checkWinner(board, player):
     # if the player in the variable 'player' has not won.                   #
     #########################################################################
 
-    #check if previous move was on horizontal line and caused a win
-    if board['top-L'] == (player) and board['top-M'] == (player) and board ['top-R'] == (player):
-        return True
-    if board['mid-L'] == (player) and board['mid-M'] == (player) and board ['mid-R'] == (player):
-        return True
-    if board['low-L'] == (player) and board['low-M'] == (player) and board ['low-R'] == (player):
-        return True
+    #Given a board and a player’s letter, this function returns True if that player has won.
 
-    #check if previous move was on vertical line and caused a win
-    if board['top-L'] == (player) and board['mid-L'] == (player) and board ['low-L'] == (player):
-        return True
-    if board['top-M'] == (player) and board['mid-M'] == (player) and board ['low-M'] == (player):
-        return True
-    if board['top-R'] == (player) and board['mid-R'] == (player) and board ['low-R'] == (player):
-        return True
+    return ((board['top-L'] == player and board['top-M'] == player and board['top-R'] == player) or # across the top 
+    (board['mid-L'] == player and board['mid-M'] == player and board['mid-R'] == player) or # across the middle
+    (board['low-L'] == player and board['low-M'] == player and board['low-R'] == player) or # across the bottom
+    (board['top-L'] == player and board['mid-L'] == player and board['low-L'] == player) or # down the left side
+    (board['top-M'] == player and board['mid-M'] == player and board['low-M'] == player) or # down the middle
+    (board['top-R'] == player and board['mid-R'] == player and board['low-R'] == player) or # down the right side
+    (board['top-L'] == player and board['mid-M'] == player and board['low-R'] == player) or # diagonal
+    (board['top-R'] == player and board['mid-M'] == player and board['low-L'] == player)) # diagonal
 
-    #check if previous move was on the main diagonal and caused a win
-    if board['top-L'] == (player) and board['mid-M'] == (player) and board ['low-R'] == (player):
-        return True
-
-    #check if previous move was on the secondary diagonal and caused a win
-    if board['top-R'] == (player) and board['mid-M'] == (player) and board ['low-L'] == (player):
-        return True 
-
-    return False 
     #end of CheckWinner function    
     
 def startGame(startingPlayer, board): # define function with 2 parameters
